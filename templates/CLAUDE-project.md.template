@@ -1,0 +1,85 @@
+# Project Name
+
+## Project Overview
+
+Brief description of what this project does and its purpose.
+
+## Tech Stack
+
+- **Language**:
+- **Framework**:
+- **Key Dependencies**:
+
+## Development Commands
+
+### Building
+```bash
+# Build commands here
+```
+
+### Testing
+```bash
+# Test commands here
+```
+
+### Running Locally
+```bash
+# How to run the project locally
+```
+
+## Project Structure
+
+```
+project-name/
+├── src/               # Source code
+├── tests/             # Test files
+├── docs/              # Documentation
+└── README.md          # User-facing documentation
+```
+
+## Common Tasks
+
+### Adding New Features
+1. Step-by-step guide for common development tasks
+
+### Debugging
+- How to debug common issues
+- Where to find logs
+- Common error patterns
+
+## Dependencies
+
+List key dependencies and why they're used:
+- `dependency-name` - Purpose and usage notes
+
+## Key Design Principles
+
+1. **Principle 1**: Description
+2. **Principle 2**: Description
+
+## Environment Variables
+
+- `VAR_NAME` - Description and default value
+
+## Common Issues
+
+### Issue Name
+**Symptom**: Description of the problem
+**Cause**: Why it happens
+**Fix**: How to resolve it
+
+## Testing Strategy
+
+- Unit tests for:
+- Integration tests for:
+- End-to-end tests for:
+
+## Deployment
+
+Steps for deploying this project:
+1.
+2.
+
+## Additional Notes
+
+Any other important information Claude should know when working with this codebase.

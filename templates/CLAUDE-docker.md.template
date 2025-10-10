@@ -1,0 +1,166 @@
+# Service Name - Docker Configuration
+
+## Service Overview
+
+Brief description of what this service does.
+
+## Docker Configuration
+
+### Image
+- **Base Image**:
+- **Version**: (Never use `latest` - always pin specific versions)
+- **Registry**:
+
+### Volumes
+- `./config:/config` - Configuration files (version controlled)
+- `/mnt/cache/CacheWork/service:/cache` - Cache data (not version controlled)
+- `/mnt/cache/appdata/service:/data` - Application data
+
+**Note**: Always use `/mnt/cache/` for Unraid performance optimization instead of `/mnt/user/`
+
+### Environment Variables
+```yaml
+PUID: 99
+PGID: 100
+TZ: Europe/London
+# Add service-specific variables
+```
+
+### Network Configuration
+- **Network**: `proxynet` (for Traefik access) or `host` (for direct host network)
+- **Exposed Ports**:
+
+## Traefik Configuration
+
+### Domain
+- **URL**: `service.munchohare.com`
+- **Pi-hole DNS**: [Yes/No] - If yes, traffic routes locally
+
+### Labels
+```yaml
+labels:
+  - traefik.enable=true
+  - traefik.http.routers.service.entryPoints=https
+  - traefik.http.routers.service.rule=Host(`service.munchohare.com`)
+  - traefik.http.routers.service.middlewares=auth@file
+  # Add service-specific labels
+```
+
+### Middleware Chain
+Order matters! Common pattern:
+1. `my-geoblock@file` - Geoblocking (ensure `allowLocalRequests: true`)
+2. `auth@file` - Authelia authentication
+3. `securityHeaders@file` - Security headers
+
+## API/Registry Access
+
+If service has API or registry endpoints that need local network bypass:
+
+### Authelia Access Control
+Add to Authelia config:
+```yaml
+- domain: "service.munchohare.com"
+  resources:
+    - "^/api([/?].*)?$"
+  networks:
+    - 192.168.0.0/16
+  policy: bypass
+```
+
+## Directory Structure
+```
+service/
+├── compose.yaml           # Docker Compose configuration
+├── .env                   # Environment variables (COMPOSE_DIR path)
+├── config/               # Config files (version controlled)
+└── secrets/              # Secrets (.gitignore'd, 600 permissions)
+```
+
+## Secrets Management
+```yaml
+secrets:
+  api_key:
+    file: ./secrets/api_key.txt
+```
+
+Never commit secrets to version control.
+
+## Building and Deployment
+
+### Building (if custom image)
+```bash
+docker build -t service:local .
+```
+
+### Running on Development Machine
+```bash
+docker compose up -d
+```
+
+**Important**: This is a development machine. Services actually run on Unraid server (192.168.0.105).
+
+### Deploying to Unraid
+1. Copy configuration to Unraid server
+2. Update paths in compose.yaml
+3. Run docker compose commands on Unraid
+
+## Debugging
+
+### View Logs
+```bash
+docker compose logs -f service
+```
+
+### MCP SSH Unraid Tools
+Use MCP tools for debugging on Unraid:
+- `mcp__unraid-ssh__docker_logs` - View container logs
+- `mcp__unraid-ssh__docker_inspect` - Detailed container info
+- `mcp__unraid-ssh__log_grep_all_logs` - Search across all logs
+
+### Check DNS Resolution
+```bash
+# From local machine
+curl -v https://service.munchohare.com
+# Look for "Connected to" line
+
+# From inside container
+docker exec container nslookup service.munchohare.com
+```
+
+### Check Authelia/Traefik
+```bash
+docker logs authelia --tail 100 | grep -i "service"
+docker logs traefik --tail 100 | grep service
+```
+
+## Common Issues
+
+### 403 Forbidden
+**Symptom**: Service returns 403 error
+**Possible Causes**:
+1. Geoblock blocking before auth bypass (set `allowLocalRequests: true`)
+2. Traffic routing through Cloudflare (add Pi-hole DNS entry or include public IP in whitelist)
+3. Missing Authelia bypass rule for API endpoints
+
+### Container Can't Connect to Other Services
+**Symptom**: DNS errors or wrong IP resolution
+**Cause**: Docker uses host DNS, may not use Pi-hole
+**Fix**: Add Pi-hole DNS entry or configure container with custom DNS
+
+## Additional Configuration
+
+### Backup Strategy
+What needs to be backed up:
+- `/config` - Configuration (already version controlled)
+- `/data` - [Yes/No and frequency]
+
+### Update Strategy
+How to update this service:
+1. Check changelog for breaking changes
+2. Update version tag in compose.yaml
+3. Test on development machine
+4. Deploy to Unraid
+
+## Notes
+
+Any service-specific quirks, gotchas, or important considerations.
