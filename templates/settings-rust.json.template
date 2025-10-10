@@ -4,6 +4,8 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:docs.rs)",
+      "WebFetch(domain:crates.io)",
       "WebSearch",
 
       "Bash(mkdir:*)",
@@ -11,14 +13,18 @@
       "Bash(cat:*)",
       "Bash(grep:*)",
       "Bash(find:*)",
+      "Bash(chmod:*)",
+
+      "Bash(cargo build:*)",
+      "Bash(cargo test:*)",
+      "Bash(cargo check:*)",
+      "Bash(cargo run:*)",
+      "Bash(cargo:*)",
 
       "Bash(jj log:*)",
       "Bash(jj diff:*)",
       "Bash(jj describe:*)",
       "Bash(jj status:*)",
-
-      "Bash(devbox add:*)",
-      "Bash(devbox run:*)",
 
       "Read(//home/jmo/Development/**)"
     ],

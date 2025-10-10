@@ -4,6 +4,8 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:docs.python.org)",
+      "WebFetch(domain:pypi.org)",
       "WebSearch",
 
       "Bash(mkdir:*)",
@@ -12,13 +14,20 @@
       "Bash(grep:*)",
       "Bash(find:*)",
 
+      "Bash(devbox add:*)",
+      "Bash(devbox run:*)",
+      "Bash(devbox shell:*)",
+
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(python -m py_compile:*)",
+      "Bash(pytest:*)",
+      "Bash(pip install:*)",
+
       "Bash(jj log:*)",
       "Bash(jj diff:*)",
       "Bash(jj describe:*)",
       "Bash(jj status:*)",
-
-      "Bash(devbox add:*)",
-      "Bash(devbox run:*)",
 
       "Read(//home/jmo/Development/**)"
     ],

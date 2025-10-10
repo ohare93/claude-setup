@@ -4,6 +4,7 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:pkg.go.dev)",
       "WebSearch",
 
       "Bash(mkdir:*)",
@@ -12,13 +13,16 @@
       "Bash(grep:*)",
       "Bash(find:*)",
 
+      "Bash(go build:*)",
+      "Bash(go test:*)",
+      "Bash(go mod:*)",
+      "Bash(go run:*)",
+      "Bash(go tool cover:*)",
+
       "Bash(jj log:*)",
       "Bash(jj diff:*)",
       "Bash(jj describe:*)",
       "Bash(jj status:*)",
-
-      "Bash(devbox add:*)",
-      "Bash(devbox run:*)",
 
       "Read(//home/jmo/Development/**)"
     ],

@@ -14,10 +14,17 @@
   - If MCP tools don't provide needed functionality, ask the user to run commands manually
   - This is a hard boundary - no exceptions
 
+## Security Best Practices
+
+- **API Keys and Secrets**: NEVER print or echo API keys in commands or logs
+  - Avoid displaying sensitive credentials in debug output
+  - Use `.gitignore` to prevent committing secrets
+  - Store secrets in `./secrets/` directory with restrictive permissions (600)
+  - When testing API integrations, verify the connection works without logging the key value
+
 ## NixOS/Home Manager Configuration
 
 - **Always use the nixos-config-expert agent** for any NixOS or Home Manager configuration changes
 - This includes: adding packages, modifying services, updating flake inputs, or any `.nix` file changes
 - Keywords that should trigger nixos-config-expert: "install to nixfiles", "add to home manager", "nixos package", "home.packages", "nix install" (NOT devbox)
 - **Exception**: devbox-related tasks should NOT use nixos-config-expert - handle those directly
-

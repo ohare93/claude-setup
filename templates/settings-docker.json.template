@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:hub.docker.com)",
+      "WebFetch(domain:docs.docker.com)",
+      "WebSearch",
+
+      "Bash(mkdir:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+
+      "Bash(docker build:*)",
+      "Bash(docker compose:*)",
+      "Bash(docker tag:*)",
+      "Bash(docker push:*)",
+      "Bash(docker run:*)",
+      "Bash(docker images:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker rm:*)",
+      "Bash(docker stop:*)",
+
+      "Bash(jj log:*)",
+      "Bash(jj diff:*)",
+      "Bash(jj describe:*)",
+      "Bash(jj status:*)",
+
+      "mcp__unraid-ssh__docker_list_containers",
+      "mcp__unraid-ssh__docker_logs",
+      "mcp__unraid-ssh__docker_inspect",
+      "mcp__unraid-ssh__system_list_files",
+
+      "Read(//home/jmo/Development/**)",
+      "Read(//home/jmo/Development/DockerUnraid/**)"
+    ],
+    "deny": []
+  }
+}

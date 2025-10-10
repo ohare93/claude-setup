@@ -52,47 +52,63 @@ Comprehensive guides and learnings:
 
 ### Installation
 
-Deploy to your Claude Code configuration:
+**Step 1: Install via Plugin Marketplace**
 
-```bash
-cd ~/Development/claude-setup
-./scripts/install.sh
+In Claude Code, run the `/plugin` command and enter the repository path:
+
+```
+/plugin
+> /home/jmo/Development/claude-setup
 ```
 
-This copies:
-- Agents to `~/.claude/agents/`
-- Commands to `~/.claude/commands/`
+This installs all agents, commands, and templates automatically.
 
-Restart Claude Code to load the new components.
+**Step 2: Symlink Global Instructions**
+
+Link the global instructions to your Claude Code config:
+
+```bash
+ln -sf ~/Development/claude-setup/docs/global-instructions.md ~/.claude/CLAUDE.md
+```
+
+Your existing `~/.claude/CLAUDE.md` will be backed up to `~/.claude/CLAUDE.md.backup`.
+
+**Step 3: Restart Claude Code**
+
+Restart Claude Code to load all components.
 
 ### Creating a New Project
 
-1. **Copy a template** to your project:
-```bash
-cp templates/CLAUDE-project.md.template ~/Development/my-project/CLAUDE.md
-```
-
-2. **Customize** the template with project-specific details
-
-3. **Optional**: Add project-specific permissions:
-```bash
-cp templates/settings.local.json.template ~/Development/my-project/.claude/settings.local.json
-```
-
-### Syncing Changes
-
-After modifying agents or commands in `~/.claude/`, sync back to repo:
+1. **Copy appropriate templates** for your language (see `templates/LANGUAGE-GUIDE.md`):
 
 ```bash
-./scripts/sync.sh
-jj describe -m "sync: update from ~/.claude/"
-jj git push
+# For Rust projects
+cp templates/CLAUDE-project.md.template ~/Development/my-app/CLAUDE.md
+cp templates/settings-rust.json.template ~/Development/my-app/.claude/settings.local.json
+
+# For Python projects
+cp templates/CLAUDE-project.md.template ~/Development/my-app/CLAUDE.md
+cp templates/settings-python.json.template ~/Development/my-app/.claude/settings.local.json
+
+# See LANGUAGE-GUIDE.md for other languages
 ```
+
+2. **Customize** the templates with project-specific details
+
+### Updating
+
+All updates happen automatically:
+
+- **Agents/Commands**: Managed by plugin marketplace, auto-update
+- **Global Instructions**: Symlinked, edit `docs/global-instructions.md` directly
+- **Templates**: Copy fresh templates when starting new projects
 
 ## Repository Structure
 
 ```
 claude-setup/
+├── .claude-plugin/      # Plugin marketplace metadata
+│   └── marketplace.json
 ├── agents/              # Custom Claude Code agents
 │   ├── nixos-config-expert.md
 │   ├── source-control-expert.md
@@ -102,18 +118,16 @@ claude-setup/
 │   └── README.md
 ├── templates/           # CLAUDE.md and config templates
 │   ├── CLAUDE-project.md.template
-│   ├── CLAUDE-docker.md.template
 │   ├── settings.local.json.template
+│   ├── settings-*.json.template  # Language-specific permissions
+│   ├── LANGUAGE-GUIDE.md
 │   └── README.md
 ├── mcp-servers/         # MCP server documentation
 │   └── README.md
 ├── docs/                # Comprehensive documentation
-│   ├── global-instructions.md
+│   ├── global-instructions.md  # Symlinked to ~/.claude/CLAUDE.md
 │   ├── best-practices.md
 │   └── permissions-guide.md
-├── scripts/             # Utility scripts
-│   ├── install.sh       # Deploy to ~/.claude/
-│   └── sync.sh          # Sync from ~/.claude/
 └── README.md            # This file
 ```
 
@@ -215,11 +229,11 @@ Permissions guide helps you balance convenience with security:
 
 ### Creating New Agents
 
-1. Copy an existing agent as starting point
-2. Modify the frontmatter (name, description, model, color)
+1. Create a new `.md` file in `agents/`
+2. Add frontmatter (name, description, model, color)
 3. Write clear instructions and boundaries
 4. Test with representative tasks
-5. Deploy with `./scripts/install.sh`
+5. Plugin marketplace auto-updates on restart
 
 [Full guide →](agents/README.md)
 
@@ -228,7 +242,7 @@ Permissions guide helps you balance convenience with security:
 1. Create a markdown file in `commands/`
 2. Write clear, actionable instructions
 3. Test by invoking in Claude Code
-4. Deploy with `./scripts/install.sh`
+4. Plugin marketplace auto-updates on restart
 
 [Full guide →](commands/README.md)
 
@@ -246,13 +260,14 @@ Templates are starting points - customize them:
 
 - Add learnings to `docs/best-practices.md` as you discover them
 - Update templates when you find better patterns
-- Sync changes back with `./scripts/sync.sh`
+- Edit agents/commands directly in repo - changes auto-sync via plugin system
 
 ### Version Control Everything
 
 - This repo should be in version control (jj/git)
 - Track changes to understand what works
 - Revert when experiments don't pan out
+- Commit improvements to agents, docs, and templates
 
 ### Document the "Why"
 
@@ -269,19 +284,35 @@ Don't just document commands - explain:
 
 ## Troubleshooting
 
+### Plugin Installation Issues
+
+1. Ensure you're running latest Claude Code version
+2. Verify `.claude-plugin/marketplace.json` exists in repo
+3. Try removing and re-adding the plugin via `/plugin`
+4. Check Claude Code logs for errors
+
 ### Agents Not Appearing
 
-1. Check files are in `~/.claude/agents/`
-2. Verify file format (markdown with frontmatter)
+1. Verify plugin is installed via `/plugin`
+2. Check file format (markdown with frontmatter)
 3. Restart Claude Code
-4. Check Claude Code logs
+4. Update `marketplace.json` if you added new agents
 
 ### Commands Not Working
 
-1. Verify file in `~/.claude/commands/`
+1. Verify plugin is installed via `/plugin`
 2. Check filename matches command name
 3. Restart Claude Code
 4. Try without the leading `/`
+
+### Global Instructions Not Loading
+
+1. Verify symlink: `ls -la ~/.claude/CLAUDE.md`
+2. Should point to `~/Development/claude-setup/docs/global-instructions.md`
+3. Recreate symlink if broken:
+   ```bash
+   ln -sf ~/Development/claude-setup/docs/global-instructions.md ~/.claude/CLAUDE.md
+   ```
 
 ### Permissions Issues
 

@@ -37,10 +37,35 @@ project-name/
 └── README.md          # User-facing documentation
 ```
 
+## Testing Requirements
+
+**IMPORTANT**: Always run all unit tests after making logic changes to the code. This should be the common final task before considering work complete.
+
+```bash
+# Run tests command here
+```
+
+Testing is not optional - it's how we verify correctness and prevent regressions.
+
+## Development Workflow
+
+### User Runs Services
+**Note**: The user will run the server/services themselves. Do not attempt to start services - instead, ask the user to run them if needed.
+
+### Sound Notifications (Optional)
+If configured, play a completion sound when finished with major tasks:
+```bash
+beepcomplete  # or your preferred notification command
+```
+
 ## Common Tasks
 
 ### Adding New Features
-1. Step-by-step guide for common development tasks
+1. Write the feature code
+2. Add comprehensive tests
+3. Run all tests to verify
+4. Format code if applicable
+5. Ask user to run services for manual testing
 
 ### Debugging
 - How to debug common issues
@@ -60,6 +85,15 @@ List key dependencies and why they're used:
 ## Environment Variables
 
 - `VAR_NAME` - Description and default value
+
+## Security Best Practices
+
+### API Keys and Secrets
+- **NEVER print or echo API keys** in commands or logs
+- Read API keys directly from shell environment, not .env files when possible
+- Avoid displaying sensitive credentials in debug output
+- Use `.gitignore` to prevent committing secrets
+- Store secrets in `./secrets/` directory with restrictive permissions (600)
 
 ## Common Issues
 

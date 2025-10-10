@@ -342,6 +342,132 @@ Never leave env vars in repeated command invocations - make them permanent.
 
 **Always run unit tests** after logic changes. This should be the common final task.
 
+## Rust Development
+
+### SQLx Migrations
+
+**Runtime vs Compile-time Modes:**
+
+SQLx has two distinct migration approaches with different behaviors:
+
+**Compile-time Mode** (with `sqlx::query!` macro):
+```rust
+// Requires compile_error.txt in migrations/
+sqlx::query!("SELECT * FROM users")
+```
+- Validates SQL at compile time
+- Needs database connection during build
+- Migrations must complete before compilation
+
+**Runtime Mode** (with `sqlx::query` without macro):
+```rust
+// No compile_error.txt needed
+sqlx::query("SELECT * FROM users")
+```
+- SQL validation happens at runtime
+- Build doesn't need database
+- Migrations run when app starts
+
+**Key Learning**: If using runtime mode, don't add `compile_error.txt` to migrations - it will cause unnecessary build failures.
+
+### Axum Error Handling and Send Trait
+
+**Problem**: Axum requires error types to implement `Send` trait for async handlers.
+
+**Symptom**:
+```rust
+// This fails:
+type BoxError = Box<dyn std::error::Error>;
+
+async fn handler() -> Result<String, BoxError> {
+    Err("error")?  // Error: BoxError doesn't implement Send
+}
+```
+
+**Cause**: `Box<dyn Error>` isn't automatically `Send` because the trait object might contain non-Send types.
+
+**Fix**:
+```rust
+// Specify Send + Sync bounds:
+type BoxError = Box<dyn std::error::Error + Send + Sync>;
+
+async fn handler() -> Result<String, BoxError> {
+    Err("error")?  // ✓ Works
+}
+```
+
+**Rule**: Always add `+ Send + Sync` to boxed error trait objects in async Rust code.
+
+## Elm and Gren Development
+
+### Gren vs Elm Syntax Differences
+
+Gren is an Elm fork with modernized syntax. Key differences:
+
+**1. Record Updates:**
+```elm
+-- Elm:
+{ model | count = model.count + 1 }
+
+-- Gren:
+{ model | count <- model.count + 1 }  -- Uses <- instead of =
+```
+
+**2. Lambda Syntax:**
+```elm
+-- Elm:
+List.map (\x -> x + 1) numbers
+
+-- Gren:
+Array.map (\x -> x + 1) numbers  -- Array instead of List
+```
+
+**3. Collection Types:**
+- Elm uses `List` for sequences
+- Gren uses `Array` for sequences (better performance)
+
+**4. Port Definitions:**
+```elm
+-- Elm:
+port sendMessage : String -> Cmd msg
+
+-- Gren:
+-- Port syntax differs, check Gren docs
+```
+
+**Common Mistake**: Copying Elm code directly to Gren projects without updating syntax.
+
+**Fix**: Always check Gren documentation when porting Elm code. The languages have diverged significantly.
+
+## Python and CLI Tools
+
+### yt-dlp Version Requirements
+
+**Critical Issue**: Package manager versions of yt-dlp break frequently due to rapid changes in video platforms.
+
+**Symptom**: Downloads fail with cryptic errors about JavaScript parsing or signature extraction.
+
+**Root Cause**: Video platforms (YouTube especially) change their APIs/page structure frequently to combat downloaders.
+
+**Solution**: Always use the latest version from GitHub master:
+```bash
+# In devbox.json:
+{
+  "packages": [
+    "github:yt-dlp/yt-dlp"  # NOT nixpkgs#yt-dlp
+  ]
+}
+```
+
+**Why**: GitHub master gets fixes within hours/days, while package managers lag by weeks/months.
+
+**Rule**: For any tool that interacts with rapidly-changing web services (downloaders, scrapers), prefer:
+1. GitHub master/main branch
+2. Direct installation from upstream
+3. Regular auto-updates
+
+Never rely on stable package versions for web scraping tools.
+
 ## When to Update This Document
 
 Add entries when you:
