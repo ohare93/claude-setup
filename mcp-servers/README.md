@@ -73,6 +73,55 @@ MCP servers provide Claude Code with additional tools and capabilities beyond th
 
 **Configuration**: See `~/Development/DockerUnraid/mcp-filemanager/README.md`
 
+### 3. Serena Coding Agent (`serena`)
+
+**Purpose**: Semantic code analysis and intelligent editing using language servers
+
+**Repository**: https://github.com/oraios/serena
+
+**Connection**: stdio transport via Nix
+
+**Tools Provided**:
+- Semantic code retrieval and navigation
+- Language server-powered code analysis
+- IDE-like code editing capabilities
+- Multi-language support (Rust, Python, TypeScript, Go, etc.)
+- Context-aware code suggestions
+
+**Key Features**:
+- Zero-config language server integration
+- Works directly with LSP (Language Server Protocol)
+- Semantic understanding beyond simple text search
+- Type-aware refactoring and navigation
+- Free and open-source
+
+**Use Cases**:
+- Navigate large codebases semantically
+- Find symbol definitions and references
+- Type-aware code completion
+- Intelligent refactoring assistance
+- Multi-language project analysis
+
+**Configuration File**: `mcp-servers/serena.json`
+
+**Installation**:
+```bash
+# Option 1: Add via Claude Code CLI
+claude mcp add --transport stdio serena -- nix run github:oraios/serena -- start-mcp-server --transport stdio
+
+# Option 2: Manually add to ~/.claude/settings.json
+# Copy the contents of mcp-servers/serena.json into the "mcpServers" section
+```
+
+**Manual Setup**:
+1. Open `~/.claude/settings.json`
+2. Add the contents of `mcp-servers/serena.json` to the `mcpServers` section
+3. Restart Claude Code
+
+**Requirements**:
+- Nix with flakes enabled (`nix-command` and `flakes` features)
+- Language servers for desired languages (Serena handles installation)
+
 ## How to Add a New MCP Server
 
 1. **Develop the server** following MCP protocol specification

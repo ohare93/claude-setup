@@ -24,6 +24,9 @@
       "agents": [
         "./agents/nixos-config-expert.md",
         "./agents/source-control-expert.md"
+      ],
+      "mcpServers": [
+        "./mcp-servers/serena.json"
       ]
     }
   ]

@@ -1,0 +1,13 @@
+{
+  "serena": {
+    "command": "nix",
+    "args": [
+      "run",
+      "github:oraios/serena",
+      "--",
+      "start-mcp-server",
+      "--transport",
+      "stdio"
+    ]
+  }
+}

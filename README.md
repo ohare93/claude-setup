@@ -37,6 +37,7 @@ Catalog of Model Context Protocol servers:
 
 - **mcp-ssh-unraid** - 86 tools for Unraid server management
 - **mcp-filemanager** - Privacy-preserving file operations
+- **serena** - Semantic code analysis via language servers (runs via Nix)
 
 [Learn more about MCP servers →](mcp-servers/README.md)
 
