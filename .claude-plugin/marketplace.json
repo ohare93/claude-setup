@@ -13,25 +13,25 @@
       "type": "agent",
       "name": "nixos-config-expert",
       "description": "Expert agent for NixOS, Home Manager, and Nix flakes configuration",
-      "source": "./../agents/nixos-config-expert.md"
+      "source": "agents/nixos-config-expert.md"
     },
     {
       "type": "agent",
       "name": "source-control-expert",
       "description": "Expert for Jujutsu (jj), container registries, and version control workflows",
-      "source": "./../agents/source-control-expert.md"
+      "source": "agents/source-control-expert.md"
     },
     {
       "type": "command",
       "name": "jj-describe-all",
       "description": "Auto-describe all jj commits using conventional commit format",
-      "source": "./../commands/jj-describe-all.md"
+      "source": "commands/jj-describe-all.md"
     },
     {
       "type": "command",
       "name": "optimise-doc",
       "description": "Optimize documentation for conciseness and clarity by strengthening vague instructions and removing redundancy",
-      "source": "./../commands/optimise-doc.md"
+      "source": "commands/optimise-doc.md"
     }
   ]
 }
