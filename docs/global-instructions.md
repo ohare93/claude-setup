@@ -1,13 +1,12 @@
-- I use jj rather than git
-- Add packages to devbox one at a time, using the `devbox add` command, as it takes too long when adding that it may go over 2 mins.
+- When confidence is below 80%, ask for clarification with multiple choice options when appropriate.
+
+## Development Tools and setup
+
+- Always use jj rather than git. Never run git commands directly when a jj command will do.
 - Devbox is my preferred way to manage dependencies
+- Add packages to devbox one at a time using `devbox add` (adding multiple packages exceeds the 120s timeout).
 - Run all unit tests whenever making logic changes to the code. It should be the common final task
-- **Environment Variables**: Minimize use of env variables in commands and make them permanent when they work:
-  - It's OK to add env vars to commands initially to test if they work (easier for debugging)
-  - Once confirmed working, immediately make them permanent via devbox `init_hook` in `devbox.json`
-  - Create `.devbox/setup-*.sh` scripts that find dependencies dynamically (e.g., searching nix store)
-  - This serves as documentation and ensures commands work for everyone
-  - Never leave env vars in repeated command invocations - that's a sign they should be permanent
+- **Environment Variables**: Test env vars in commands initially, then make permanent in `devbox.json` `init_hook` or `.devbox/setup-*.sh` scripts. Never leave env vars in repeated command invocations.
 - **CRITICAL - Server Access**: NEVER use ssh, scp, or any direct remote access tools to access servers
   - SSH keys and servers are personal and off-limits
   - ONLY use MCP tools that have been explicitly provided for server access
@@ -24,7 +23,5 @@
 
 ## NixOS/Home Manager Configuration
 
-- **Always use the nixos-config-expert agent** for any NixOS or Home Manager configuration changes
-- This includes: adding packages, modifying services, updating flake inputs, or any `.nix` file changes
-- Keywords that should trigger nixos-config-expert: "install to nixfiles", "add to home manager", "nixos package", "home.packages", "nix install" (NOT devbox)
+- **Always use the nixos-config-expert agent** for NixOS/Home Manager changes: adding packages, modifying services, updating flake inputs, or editing `.nix` files
 - **Exception**: devbox-related tasks should NOT use nixos-config-expert - handle those directly
