@@ -279,7 +279,83 @@ To use a different database file, modify `mcp-servers/sqlite.json`:
 **Requirements**:
 - Node.js and npx (installed globally via NixOS configuration)
 
-### 7. Playwright MCP Server (`playwright`)
+### 7. Code-Mode (`code-mode`)
+
+**Purpose**: Execute complex workflows through TypeScript code rather than sequential tool calls
+
+**Repository**: https://github.com/universal-tool-calling-protocol/code-mode
+
+**Connection**: stdio transport via npx
+
+**Tools Provided**:
+- **call_tool_chain**: Execute TypeScript code that can call multiple tools simultaneously
+- **Progressive tool discovery**: Dynamically load only relevant tools
+- **Multi-protocol support**: Access MCP, HTTP, File, and CLI tools from single code block
+
+**Key Features**:
+- 60% faster execution than traditional tool calling
+- 68% fewer tokens consumed
+- 88% fewer API round trips
+- Secure VM sandboxing for safe code execution
+- Auto-generated TypeScript interfaces for all available tools
+- Configurable execution timeouts
+- Complete console output capture
+
+**Performance Benefits**:
+Traditional approach (multiple sequential tool calls):
+```
+Call tool A → Wait → Call tool B → Wait → Call tool C → Wait
+(High latency, many API calls, lots of tokens)
+```
+
+Code-mode approach (single code execution):
+```typescript
+// Single execution calling multiple tools
+const resultA = await toolA();
+const resultB = await toolB(resultA);
+const resultC = await toolC(resultB);
+```
+(Low latency, one API call, minimal tokens)
+
+**Use Cases**:
+- Complex multi-tool workflows that need to run efficiently
+- Data processing pipelines requiring multiple tool interactions
+- Reducing token costs on repetitive tool-heavy operations
+- Building adaptive workflows with runtime tool discovery
+- Enterprise applications needing cost optimization
+
+**Configuration File**: `mcp-servers/code-mode.json`
+
+**Installation**:
+```bash
+# Automatically installed via .mcp.json configuration
+# Uses npx to run @utcp/code-mode-mcp
+```
+
+**Advanced Configuration**:
+To configure specific tool sources, set the `UTCP_CONFIG_FILE` environment variable:
+```json
+{
+  "code-mode": {
+    "command": "npx",
+    "args": ["-y", "@utcp/code-mode-mcp"],
+    "env": {
+      "UTCP_CONFIG_FILE": "/path/to/.utcp_config.json"
+    }
+  }
+}
+```
+
+**Cost Savings Example**:
+According to independent benchmarks, code-mode can save approximately $9,536/year at enterprise scale by reducing:
+- API round trips (88% reduction)
+- Token consumption (68% reduction)
+- Execution time (60% improvement)
+
+**Requirements**:
+- Node.js and npx (installed globally via NixOS configuration)
+
+### 8. Playwright MCP Server (`playwright`)
 
 **Purpose**: Browser automation for web testing, scraping, and interaction
 
@@ -351,7 +427,7 @@ Available options:
 
 The following are Claude Code plugins (not MCP servers) that extend Claude Code's capabilities through the plugin system:
 
-### 8. Superpowers (`superpowers`)
+### 9. Superpowers (`superpowers`)
 
 **Purpose**: Comprehensive skills library for systematic software development
 
@@ -399,7 +475,7 @@ The following are Claude Code plugins (not MCP servers) that extend Claude Code'
 - Claude Code with plugin support
 - No additional dependencies
 
-### 9. Claude Notifications Go (`claude-notifications-go`)
+### 10. Claude Notifications Go (`claude-notifications-go`)
 
 **Purpose**: Intelligent desktop notifications for Claude Code task status
 
@@ -449,7 +525,7 @@ The following are Claude Code plugins (not MCP servers) that extend Claude Code'
 - Windows: Git Bash or WSL
 - macOS/Linux: No additional software needed
 
-### 10. Claude-Mem (`claude-mem`)
+### 11. Claude-Mem (`claude-mem`)
 
 **Purpose**: Persistent memory compression across coding sessions
 

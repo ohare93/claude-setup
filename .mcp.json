@@ -51,6 +51,13 @@
         "-y",
         "@playwright/mcp@latest"
       ]
+    },
+    "code-mode": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@utcp/code-mode-mcp"
+      ]
     }
   }
 }
