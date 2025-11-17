@@ -1,2 +1,56 @@
-{ "mcpServers": { "serena": { "command": "nix", "args": [ "run",
-"github:oraios/serena", "--", "start-mcp-server", "--transport", "stdio" ] } } }
+{
+  "mcpServers": {
+    "serena": {
+      "command": "nix",
+      "args": [
+        "run",
+        "github:oraios/serena",
+        "--",
+        "start-mcp-server",
+        "--transport",
+        "stdio"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/jmo/Development",
+        "/tmp"
+      ]
+    },
+    "gitea": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITEA_HOST=https://git.munchohare.com",
+        "-e",
+        "GITEA_ACCESS_TOKEN",
+        "docker.gitea.com/gitea-mcp-server"
+      ],
+      "env": {
+        "GITEA_ACCESS_TOKEN": "${GITEA_ACCESS_TOKEN}"
+      }
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "--db-path",
+        "/tmp/test.db"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}

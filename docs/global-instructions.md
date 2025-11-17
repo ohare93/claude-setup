@@ -2,6 +2,45 @@
 
 - When confidence is below 80%, ask for clarification with multiple choice options when appropriate.
 
+## Docker
+
+### Checking Image Versions
+
+- **ALWAYS use `skopeo` to check Docker image versions** - never try to parse Docker Hub web pages
+- `skopeo` works reliably with Docker Hub, Quay.io, GitHub Container Registry, and custom registries like Gitea
+
+**List available tags:**
+
+```bash
+# Docker Hub
+skopeo list-tags docker://username/image
+skopeo list-tags docker://rommapp/romm
+
+# Quay.io
+skopeo list-tags docker://quay.io/organization/image
+
+# GitHub Container Registry
+skopeo list-tags docker://ghcr.io/owner/repo
+
+# Custom registry (like Gitea)
+skopeo list-tags docker://git.munchohare.com/jmo/image
+```
+
+**Inspect specific image/tag:**
+
+```bash
+# Get detailed image information including labels, architecture, layers
+skopeo inspect docker://rommapp/romm:4.3.2
+skopeo inspect docker://git.munchohare.com/jmo/audioseek-frontend:0.1.11
+```
+
+**Why skopeo over web scraping:**
+
+- Reliable: Direct registry API access, not HTML parsing
+- Fast: No JavaScript rendering or page loading
+- Comprehensive: Works with all OCI-compliant registries
+- Accurate: Gets data directly from registry without intermediaries
+
 ## Useful Information
 
 - My github username is ohare93
@@ -10,7 +49,6 @@
 ## Security
 
 - **CRITICAL - Server Access**: NEVER use ssh, scp, or any direct remote access tools to access servers
-
   - SSH keys and servers are personal and off-limits
   - ONLY use MCP tools that have been explicitly provided for server access
   - If MCP tools don't provide needed functionality, ask the user to run commands manually

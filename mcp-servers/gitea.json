@@ -1,0 +1,18 @@
+{
+  "gitea": {
+    "command": "docker",
+    "args": [
+      "run",
+      "-i",
+      "--rm",
+      "-e",
+      "GITEA_HOST=https://git.munchohare.com",
+      "-e",
+      "GITEA_ACCESS_TOKEN",
+      "docker.gitea.com/gitea-mcp-server"
+    ],
+    "env": {
+      "GITEA_ACCESS_TOKEN": "${GITEA_ACCESS_TOKEN}"
+    }
+  }
+}
