@@ -23,7 +23,9 @@
       ],
       "agents": [
         "./agents/nixos-config-expert.md",
-        "./agents/source-control-expert.md"
+        "./agents/source-control-expert.md",
+        "./agents/code-reviewer.md",
+        "./agents/docs-maintainer.md"
       ],
       "mcpServers": [
         "./mcp-servers/serena.json"
