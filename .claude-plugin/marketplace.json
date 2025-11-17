@@ -25,6 +25,9 @@
         "./agents/nixos-config-expert.md",
         "./agents/source-control-expert.md"
       ],
+      "hooks": [
+        "./hooks/forced-eval-skill.md"
+      ],
       "mcpServers": [
         "./mcp-servers/serena.json"
       ]
