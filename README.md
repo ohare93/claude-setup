@@ -74,7 +74,20 @@ ln -sf ~/Development/claude-setup/docs/global-instructions.md ~/.claude/CLAUDE.m
 
 Your existing `~/.claude/CLAUDE.md` will be backed up to `~/.claude/CLAUDE.md.backup`.
 
-**Step 3: Restart Claude Code**
+**Step 3: Configure MCP Server Paths**
+
+⚠️ **Important**: Update the filesystem MCP server path to match your system:
+
+```bash
+# Edit .mcp.json and update the filesystem path
+# Replace /home/jmo/Development with your actual development directory
+```
+
+Files to update:
+- `.mcp.json` - Line 19: Update filesystem args path
+- `mcp-servers/filesystem.json` - Line 7: Update filesystem args path
+
+**Step 4: Restart Claude Code**
 
 Restart Claude Code to load all components.
 

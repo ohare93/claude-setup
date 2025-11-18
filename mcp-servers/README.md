@@ -151,10 +151,19 @@ claude mcp add --transport stdio serena -- nix run github:oraios/serena -- start
 - Access temporary files for testing
 
 **Configured Directories**:
-- `/home/jmo/Development` - Main development directory (read/write)
+- `/home/jmo/Development` - Main development directory (read/write) **⚠️ CUSTOMIZE THIS PATH**
 - `/tmp` - Temporary files location (read/write)
 
-**Configuration File**: `mcp-servers/filesystem.json`
+**⚠️ Important Setup Note**:
+The filesystem server is configured with `/home/jmo/Development` as the default path. **You must update this path** to match your actual development directory:
+
+1. Edit `.mcp.json` - Update the `filesystem.args` array
+2. Edit `mcp-servers/filesystem.json` - Update the args array
+3. Replace `/home/jmo/Development` with your actual development path (e.g., `/home/youruser/Development`)
+
+**Configuration Files**:
+- `.mcp.json` (active runtime configuration)
+- `mcp-servers/filesystem.json` (plugin marketplace configuration)
 
 **Requirements**:
 - Node.js and npx (installed globally via NixOS configuration)
