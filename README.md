@@ -4,6 +4,10 @@ A centralized collection of custom configurations, agents, commands, templates, 
 
 ## What's Included
 
+### 📊 Status Line Enhancement
+
+- **contextbricks** - Real-time context tracking with brick visualization showing token breakdown, git status, model info, and session metrics
+
 ### 🤖 Custom Agents (`agents/`)
 
 Specialized sub-agents with specific expertise:
@@ -64,7 +68,19 @@ In Claude Code, run the `/plugin` command and enter the repository path:
 
 This installs all agents, commands, and templates automatically.
 
-**Step 2: Symlink Global Instructions**
+**Step 2: Install Dependencies (includes contextbricks status line)**
+
+Navigate to the repository and install npm dependencies:
+
+```bash
+cd ~/Development/claude-setup
+npm install
+```
+
+This will automatically install and configure:
+- **contextbricks** - Real-time context tracking with brick visualization for your status line
+
+**Step 3: Symlink Global Instructions**
 
 Link the global instructions to your Claude Code config:
 
@@ -74,7 +90,7 @@ ln -sf ~/Development/claude-setup/docs/global-instructions.md ~/.claude/CLAUDE.m
 
 Your existing `~/.claude/CLAUDE.md` will be backed up to `~/.claude/CLAUDE.md.backup`.
 
-**Step 3: Restart Claude Code**
+**Step 4: Restart Claude Code**
 
 Restart Claude Code to load all components.
 
