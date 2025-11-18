@@ -19,14 +19,25 @@
       },
       "commands": [
         "./commands/jj-describe-all.md",
-        "./commands/optimise-doc.md"
+        "./commands/juggle-plan-all.md",
+        "./commands/optimise-doc.md",
+        "./commands/split-plan.md"
       ],
       "agents": [
         "./agents/nixos-config-expert.md",
-        "./agents/source-control-expert.md"
+        "./agents/source-control-expert.md",
+        "./agents/code-reviewer.md",
+        "./agents/docs-maintainer.md"
+      ],
+      "hooks": [
+        "./hooks/forced-eval-skill.md"
       ],
       "mcpServers": [
-        "./mcp-servers/serena.json"
+        "./mcp-servers/filesystem.json",
+        "./mcp-servers/gitea.json",
+        "./mcp-servers/playwright.json",
+        "./mcp-servers/serena.json",
+        "./mcp-servers/sqlite.json"
       ]
     }
   ]

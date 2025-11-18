@@ -1,6 +1,7 @@
 ## General Guidelines
 
 - When confidence is below 80%, ask for clarification with multiple choice options when appropriate.
+- **After completing todos**: When you've finished implementing todos (especially coding tasks), invoke the code-reviewer agent to review your changes for quality, security, and best practices.
 
 ## Docker
 

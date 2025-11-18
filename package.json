@@ -1,0 +1,26 @@
+{
+  "name": "claude-setup-repository",
+  "version": "1.0.0",
+  "description": "Comprehensive collection of custom agents, commands, templates, and documentation for Claude Code workflows",
+  "author": "jmo <jmo@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmo/claude-setup"
+  },
+  "scripts": {
+    "postinstall": "contextbricks install"
+  },
+  "dependencies": {
+    "contextbricks": "^1.0.3"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "agents",
+    "commands",
+    "templates",
+    "mcp",
+    "statusline"
+  ]
+}

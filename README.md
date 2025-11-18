@@ -4,6 +4,10 @@ A centralized collection of custom configurations, agents, commands, templates, 
 
 ## What's Included
 
+### 📊 Status Line Enhancement
+
+- **contextbricks** - Real-time context tracking with brick visualization showing token breakdown, git status, model info, and session metrics
+
 ### 🤖 Custom Agents (`agents/`)
 
 Specialized sub-agents with specific expertise:
@@ -20,6 +24,14 @@ Reusable prompts for common workflows:
 - **/jj-describe-all** - Auto-describe all jj commits with conventional format
 
 [Learn more about commands →](commands/README.md)
+
+### 🎣 Hooks (`hooks/`)
+
+Automated behavior improvements that run at specific trigger points:
+
+- **forced-eval-skill** - Dramatically improves skill activation reliability (84% vs 50% baseline)
+
+[Learn more about hooks →](hooks/README.md)
 
 ### 📝 Templates (`templates/`)
 
@@ -64,7 +76,19 @@ In Claude Code, run the `/plugin` command and enter the repository path:
 
 This installs all agents, commands, and templates automatically.
 
-**Step 2: Symlink Global Instructions**
+**Step 2: Install Dependencies (includes contextbricks status line)**
+
+Navigate to the repository and install npm dependencies:
+
+```bash
+cd ~/Development/claude-setup
+npm install
+```
+
+This will automatically install and configure:
+- **contextbricks** - Real-time context tracking with brick visualization for your status line
+
+**Step 3: Symlink Global Instructions**
 
 Link the global instructions to your Claude Code config:
 
@@ -74,7 +98,31 @@ ln -sf ~/Development/claude-setup/docs/global-instructions.md ~/.claude/CLAUDE.m
 
 Your existing `~/.claude/CLAUDE.md` will be backed up to `~/.claude/CLAUDE.md.backup`.
 
-**Step 3: Restart Claude Code**
+**Step 4: Install Hooks (Recommended)**
+
+Install the forced eval hook to dramatically improve skill activation reliability:
+
+```bash
+mkdir -p ~/.claude/hooks
+ln -sf ~/Development/claude-setup/hooks/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
+```
+
+This increases skill activation from ~50% to 84% success rate.
+
+**Step 5: Configure MCP Server Paths**
+
+⚠️ **Important**: Update the filesystem MCP server path to match your system:
+
+```bash
+# Edit .mcp.json and update the filesystem path
+# Replace /home/jmo/Development with your actual development directory
+```
+
+Files to update:
+- `.mcp.json` - Line 19: Update filesystem args path
+- `mcp-servers/filesystem.json` - Line 7: Update filesystem args path
+
+**Step 6: Restart Claude Code**
 
 Restart Claude Code to load all components.
 
@@ -101,6 +149,7 @@ cp templates/settings-python.json.template ~/Development/my-app/.claude/settings
 All updates happen automatically:
 
 - **Agents/Commands**: Managed by plugin marketplace, auto-update
+- **Hooks**: Symlinked, automatically use latest version from `hooks/`
 - **Global Instructions**: Symlinked, edit `docs/global-instructions.md` directly
 - **Templates**: Copy fresh templates when starting new projects
 
@@ -116,6 +165,9 @@ claude-setup/
 │   └── README.md
 ├── commands/            # Slash commands
 │   ├── jj-describe-all.md
+│   └── README.md
+├── hooks/               # Behavior improvement hooks
+│   ├── forced-eval-skill.md
 │   └── README.md
 ├── templates/           # CLAUDE.md and config templates
 │   ├── CLAUDE-project.md.template
@@ -157,6 +209,21 @@ Type the command in Claude Code:
 ```
 
 Claude will execute the command's instructions.
+
+### Using Hooks
+
+Install hooks to automatically improve Claude's behavior:
+
+```bash
+# Install the forced eval skill hook globally
+mkdir -p ~/.claude/hooks
+cp hooks/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
+
+# Or use a symlink for automatic updates
+ln -sf ~/Development/claude-setup/hooks/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
+```
+
+The hook will automatically run on every prompt, ensuring skills activate reliably.
 
 ### Using Templates
 
@@ -216,6 +283,12 @@ Permissions guide helps you balance convenience with security:
 - You want to standardize a process
 - You need quick access to complex instructions
 
+### Use Hooks When:
+- Skills aren't activating reliably (~50% baseline)
+- You want automated behavior improvements
+- You need consistent skill evaluation across all sessions
+- You're frustrated by Claude ignoring relevant skills
+
 ### Use Templates When:
 - Starting a new project
 - Onboarding to an existing project
@@ -246,6 +319,16 @@ Permissions guide helps you balance convenience with security:
 4. Plugin marketplace auto-updates on restart
 
 [Full guide →](commands/README.md)
+
+### Creating New Hooks
+
+1. Create a markdown file in `hooks/`
+2. Write clear instructions for the trigger point
+3. Name according to trigger: `user-prompt-submit.md`, `session-start.md`, etc.
+4. Test with representative scenarios
+5. Document success rates and when to use
+
+[Full guide →](hooks/README.md)
 
 ### Extending Templates
 
