@@ -33,6 +33,14 @@ Automated behavior improvements that run at specific trigger points:
 
 [Learn more about hooks →](hooks/README.md)
 
+### 🎨 Skills (`skills/`)
+
+Interactive workflows for complex multi-step processes:
+
+- **consolidate-branches** - Consolidate multiple PR branches using jj multi-parent rebase with intelligent AI-powered conflict resolution
+
+[Learn more about skills →](skills/README.md)
+
 ### 📝 Templates (`templates/`)
 
 Starter templates for project documentation:
@@ -86,6 +94,7 @@ npm install
 ```
 
 This will automatically install and configure:
+
 - **contextbricks** - Real-time context tracking with brick visualization for your status line
 
 **Step 3: Symlink Global Instructions**
@@ -119,6 +128,7 @@ This increases skill activation from ~50% to 84% success rate.
 ```
 
 Files to update:
+
 - `.mcp.json` - Line 19: Update filesystem args path
 - `mcp-servers/filesystem.json` - Line 7: Update filesystem args path
 
@@ -168,6 +178,10 @@ claude-setup/
 │   └── README.md
 ├── hooks/               # Behavior improvement hooks
 │   ├── forced-eval-skill.md
+│   └── README.md
+├── skills/              # Interactive multi-step workflows
+│   ├── consolidate-branches/
+│   │   └── SKILL.md
 │   └── README.md
 ├── templates/           # CLAUDE.md and config templates
 │   ├── CLAUDE-project.md.template
@@ -225,6 +239,17 @@ ln -sf ~/Development/claude-setup/hooks/forced-eval-skill.md ~/.claude/hooks/use
 
 The hook will automatically run on every prompt, ensuring skills activate reliably.
 
+### Using Skills
+
+Skills are interactive workflows invoked via the Skill tool:
+
+```
+You: "I have multiple PR branches that need to be consolidated onto main"
+Claude: *invokes consolidate-branches skill*
+```
+
+Skills guide you through multi-step processes with questions and validations.
+
 ### Using Templates
 
 Start a new project with best practices baked in:
@@ -245,6 +270,7 @@ vim ~/Development/my-app/CLAUDE.md
 ### 🎯 Specialized Agents
 
 Agents bring deep expertise to specific domains:
+
 - Use Opus for complex reasoning (NixOS configurations)
 - Use Sonnet for balanced tasks (version control)
 - Clear boundaries on what each agent does/doesn't do
@@ -252,6 +278,7 @@ Agents bring deep expertise to specific domains:
 ### ⚡ Workflow Automation
 
 Slash commands encapsulate common workflows:
+
 - No need to remember complex command sequences
 - Consistent results every time
 - Easy to share across team
@@ -259,6 +286,7 @@ Slash commands encapsulate common workflows:
 ### 📋 Best Practices Built-In
 
 Templates codify lessons learned:
+
 - Docker volume optimization for Unraid
 - Traefik middleware ordering
 - NixOS external file inclusion patterns
@@ -267,6 +295,7 @@ Templates codify lessons learned:
 ### 🔒 Security Conscious
 
 Permissions guide helps you balance convenience with security:
+
 - Pre-approve safe operations
 - Require confirmation for risky ones
 - Project-specific vs global permissions
@@ -274,27 +303,39 @@ Permissions guide helps you balance convenience with security:
 ## When to Use Each Component
 
 ### Use Agents When:
+
 - You need specialized expertise (NixOS, container registries)
 - The task requires specific quality standards
 - You want consistent behavior across similar tasks
 
 ### Use Slash Commands When:
+
 - You repeat the same workflow frequently
 - You want to standardize a process
 - You need quick access to complex instructions
 
 ### Use Hooks When:
+
 - Skills aren't activating reliably (~50% baseline)
 - You want automated behavior improvements
 - You need consistent skill evaluation across all sessions
 - You're frustrated by Claude ignoring relevant skills
 
+### Use Skills When:
+
+- You need an interactive multi-step workflow
+- The process requires decisions and validations along the way
+- You want AI-powered intelligence (like conflict resolution)
+- The task is complex enough to benefit from guided execution
+
 ### Use Templates When:
+
 - Starting a new project
 - Onboarding to an existing project
 - Standardizing documentation across projects
 
 ### Use MCP Servers When:
+
 - You need tools beyond Claude Code's built-ins
 - You're working with specific infrastructure (Unraid)
 - You want read-only debugging access to remote systems
@@ -333,6 +374,7 @@ Permissions guide helps you balance convenience with security:
 ### Extending Templates
 
 Templates are starting points - customize them:
+
 - Add project-specific sections
 - Remove irrelevant parts
 - Include your team's conventions
@@ -356,6 +398,7 @@ Templates are starting points - customize them:
 ### Document the "Why"
 
 Don't just document commands - explain:
+
 - Why this approach over alternatives
 - What problems it solves
 - When NOT to use it
@@ -427,6 +470,7 @@ MIT - Use freely for your own Claude Code setup
 ## Acknowledgments
 
 Built with insights from:
+
 - Countless debugging sessions
 - Trial and error with NixOS configurations
 - Working with Docker/Traefik/Authelia

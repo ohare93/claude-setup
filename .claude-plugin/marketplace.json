@@ -11,7 +11,7 @@
     {
       "name": "jmo-development-tools",
       "source": "./",
-      "description": "Custom commands and agents for NixOS, Jujutsu, and documentation workflows",
+      "description": "Custom commands, agents, and skills for NixOS, Jujutsu, and documentation workflows",
       "version": "1.0.0",
       "author": {
         "name": "jmo",
@@ -38,6 +38,9 @@
         "./mcp-servers/playwright.json",
         "./mcp-servers/serena.json",
         "./mcp-servers/sqlite.json"
+       ],
+       "skills": [
+         "./skills/consolidate-branches/SKILL.md"
       ]
     }
   ]
