@@ -16,3 +16,7 @@ Thumbs.db
 # Local configuration overrides (if any)
 *.local
 !settings.local.json.template
+
+# Node.js
+node_modules/
+package-lock.json

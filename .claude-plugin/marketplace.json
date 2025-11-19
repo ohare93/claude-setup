@@ -29,9 +29,6 @@
         "./agents/code-reviewer.md",
         "./agents/docs-maintainer.md"
       ],
-      "hooks": [
-        "./hooks/forced-eval-skill.md"
-      ],
       "mcpServers": [
         "./mcp-servers/filesystem.json",
         "./mcp-servers/gitea.json",
