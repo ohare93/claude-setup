@@ -5,7 +5,9 @@
       "-y",
       "@modelcontextprotocol/server-filesystem",
       "/home/jmo/Development",
-      "/tmp"
+      "/tmp",
+      "/home/jmo/nixfiles",
+      "/home/jmo/nixfiles.private"
     ]
   }
 }
