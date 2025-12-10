@@ -1,0 +1,6 @@
+{
+  "unraid-ssh": {
+    "type": "http",
+    "url": "https://mcp.munchohare.com/mcp"
+  }
+}
