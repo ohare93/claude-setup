@@ -17,6 +17,9 @@ Thumbs.db
 *.local
 !settings.local.json.template
 
+# Project-specific MCP config
+.mcp.json
+
 # Node.js
 node_modules/
 package-lock.json
