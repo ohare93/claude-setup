@@ -102,10 +102,10 @@ model_id=$(echo "$input" | jq -r '.model.id // ""')
 
 # Determine context limit based on model
 case "$model_id" in
-    *"opus-4"*) total_tokens=200000 ;;
-    *"sonnet-4"*|*"sonnet-3-7"*) total_tokens=200000 ;;
-    *"haiku"*) total_tokens=200000 ;;
-    *) total_tokens=200000 ;;  # Default
+    *"opus-4"*) total_tokens=150000 ;;
+    *"sonnet-4"*|*"sonnet-3-7"*) total_tokens=150000 ;;
+    *"haiku"*) total_tokens=150000 ;;
+    *) total_tokens=150000 ;;  # Default
 esac
 
 # Parse transcript for token usage (if available)

@@ -432,11 +432,90 @@ Available options:
 - npx (installed globally via NixOS configuration)
 - Playwright browsers (auto-installed on first use)
 
+### 9. GitHub MCP Server (`github`)
+
+**Purpose**: Full GitHub integration for repository management, issues, PRs, code search, and more
+
+**Connection**: HTTP transport to GitHub Copilot MCP endpoint
+
+**Tools Provided** (80+ tools):
+- **Repository Management**: Create, fork, star, search repositories
+- **Issues**: Create, update, search, comment on issues
+- **Pull Requests**: Create, review, merge PRs, add comments
+- **Code Search**: Search code, files, commits across repositories
+- **Actions**: List, trigger, cancel workflow runs, get logs
+- **Notifications**: List, dismiss, manage notification subscriptions
+- **Projects**: List, create, update project items and fields
+- **Discussions**: List, get, comment on discussions
+- **Security**: Code scanning, dependabot, secret scanning alerts
+
+**Key Features**:
+- Full GitHub API access through MCP tools
+- Works with public and private repositories
+- Supports GitHub Actions management
+- Issue and PR workflow automation
+- Code search across all accessible repos
+
+**Use Cases**:
+- Create and manage GitHub issues from Claude Code
+- Review and merge pull requests
+- Search code across repositories
+- Trigger and monitor GitHub Actions
+- Manage notifications without leaving the terminal
+
+**Configuration File**: `mcp-servers/github.json`
+
+**Setup Instructions**:
+
+1. **Generate GitHub Personal Access Token**:
+   - Go to https://github.com/settings/tokens
+   - Click "Generate new token (classic)"
+   - Select scopes: `repo`, `read:org`, `read:user`, `notifications`, `workflow`
+   - Copy the generated token
+
+2. **Set Environment Variable**:
+   ```bash
+   export GITHUB_TOKEN="ghp_your_token_here"
+   ```
+
+   Add to your shell configuration file (`~/.bashrc`, `~/.zshrc`, etc.):
+   ```bash
+   export GITHUB_TOKEN="ghp_your_token_here"
+   ```
+
+3. **Verify Connection**:
+   After restarting Claude Code, run `/mcp` to verify GitHub shows as connected.
+
+**Configuration**:
+```json
+{
+  "github": {
+    "type": "http",
+    "url": "https://api.githubcopilot.com/mcp",
+    "headers": {
+      "Authorization": "Bearer ${GITHUB_TOKEN}",
+      "X-MCP-Toolsets": "all"
+    }
+  }
+}
+```
+
+**Requirements**:
+- GitHub account
+- Personal Access Token with appropriate scopes
+- GITHUB_TOKEN environment variable set
+
+**Security Notes**:
+- Never commit your access token to version control
+- Store token in environment variables only
+- Use token with minimum required permissions
+- Rotate tokens periodically
+
 ## Claude Code Plugins
 
 The following are Claude Code plugins (not MCP servers) that extend Claude Code's capabilities through the plugin system:
 
-### 9. Superpowers (`superpowers`)
+### 10. Superpowers (`superpowers`)
 
 **Purpose**: Comprehensive skills library for systematic software development
 
@@ -484,7 +563,7 @@ The following are Claude Code plugins (not MCP servers) that extend Claude Code'
 - Claude Code with plugin support
 - No additional dependencies
 
-### 10. Claude Notifications Go (`claude-notifications-go`)
+### 11. Claude Notifications Go (`claude-notifications-go`)
 
 **Purpose**: Intelligent desktop notifications for Claude Code task status
 
@@ -534,7 +613,7 @@ The following are Claude Code plugins (not MCP servers) that extend Claude Code'
 - Windows: Git Bash or WSL
 - macOS/Linux: No additional software needed
 
-### 11. Claude-Mem (`claude-mem`)
+### 12. Claude-Mem (`claude-mem`)
 
 **Purpose**: Persistent memory compression across coding sessions
 
