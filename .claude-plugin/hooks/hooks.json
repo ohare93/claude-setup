@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/hooks/audio-notify.sh\" stop"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/hooks/debug-hook.sh\" Stop"
           }
         ]
       }
@@ -28,7 +28,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/hooks/audio-notify.sh\" notify"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/hooks/debug-hook.sh\" Notification"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/hooks/debug-hook.sh\" UserPromptSubmit"
           }
         ]
       }
