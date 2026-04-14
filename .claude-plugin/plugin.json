@@ -1,0 +1,8 @@
+{
+  "name": "jmo-development-tools",
+  "description": "Custom commands, agents, and skills for NixOS, Jujutsu, and documentation workflows",
+  "author": {
+    "name": "jmo",
+    "email": "jmo@example.com"
+  }
+}

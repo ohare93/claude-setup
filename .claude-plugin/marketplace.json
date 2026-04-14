@@ -4,7 +4,7 @@
     "name": "jmo",
     "email": "jmo@example.com"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Comprehensive collection of custom agents, commands, templates, and documentation for Claude Code workflows",
   "homepage": "https://github.com/jmo/claude-setup",
   "plugins": [
@@ -12,7 +12,7 @@
       "name": "jmo-development-tools",
       "source": "./",
       "description": "Custom commands, agents, and skills for NixOS, Jujutsu, and documentation workflows",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "author": {
         "name": "jmo",
         "email": "jmo@example.com"
@@ -37,8 +37,7 @@
          "./skills/jj/SKILL.md",
          "./skills/nixos-config/SKILL.md",
          "./skills/sandbox-architect/SKILL.md"
-      ],
-      "hooks": "./.claude-plugin/hooks/hooks.json"
+      ]
     }
   ]
 }

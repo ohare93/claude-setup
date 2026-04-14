@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/hooks/prefer-modern-tools.sh\""
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/prefer-modern-tools.sh\""
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/hooks/debug-hook.sh\" Stop"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/debug-hook.sh\" Stop"
           }
         ]
       }
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/hooks/debug-hook.sh\" Notification"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/debug-hook.sh\" Notification"
           }
         ]
       }
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/hooks/debug-hook.sh\" UserPromptSubmit"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/debug-hook.sh\" UserPromptSubmit"
           }
         ]
       }
