@@ -27,11 +27,16 @@ Reusable prompts for common workflows:
 
 ### 🎣 Hooks (`hooks/`)
 
-Automated behavior improvements that run at specific trigger points:
+Executable shell hooks wired via `hooks/hooks.json` (follows the [Hookify](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/hookify) convention — hooks live at `<plugin-root>/hooks/hooks.json`, not `.claude-plugin/hooks/`):
 
-- **forced-eval-skill** - Dramatically improves skill activation reliability (84% vs 50% baseline)
+- **prefer-modern-tools** - PreToolUse hook that blocks `grep`/`find` in favor of `rg`/`fd`
+- **niri-notify** - Stop/Notification hook that flags unfocused kitty windows as urgent in Niri and emits a desktop notification when Claude needs input
 
 [Learn more about hooks →](hooks/README.md)
+
+Prompt-injection "hooks" (markdown instructions loaded per session) live in [`hooks-docs/`](hooks-docs/README.md):
+
+- **forced-eval-skill** - Dramatically improves skill activation reliability (84% vs 50% baseline)
 
 ### 🎨 Skills (`skills/`)
 
