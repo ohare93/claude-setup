@@ -37,6 +37,10 @@ You: "I have 3 PR branches that need to be merged onto main"
 Claude: *invokes consolidate-branches skill*
 ```
 
+### final-review
+
+Run the final validation and adversarial review loop before the final answer when a task changed material files.
+
 ## How Skills Work
 
 When Claude invokes a skill:

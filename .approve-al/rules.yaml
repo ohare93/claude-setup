@@ -1,0 +1,28 @@
+# approve-al project rules — deterministic rule matching (Layer 2)
+# These are checked after global rules but before the AI agent.
+
+# allow_project_paths auto-allows Edit, Write, Read, and NotebookEdit
+# for files inside this project directory, skipping the AI layer entirely.
+allow_project_paths: true
+
+rules:
+  # This repo manages agent configs — allow writing/symlinking to agent config dirs
+  - tool: Bash
+    name: allow-agent-symlinks
+    match: '^ln -sf\b.*\s/home/jmo/\.(claude|codex)/'
+    decision: allow
+
+  - tool: Bash
+    name: allow-agent-mkdir
+    match: '^mkdir -p /home/jmo/\.(claude|codex)'
+    decision: allow
+
+  - tool: Bash
+    name: allow-agent-rm
+    match: '^rm\b.*\s/home/jmo/\.(claude|codex)/'
+    decision: allow
+
+  - tool: Bash
+    name: allow-agent-cp
+    match: '^cp\b.*\s/home/jmo/\.(claude|codex)/'
+    decision: allow

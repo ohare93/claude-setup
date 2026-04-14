@@ -31,6 +31,24 @@ This hook forces Claude to explicitly evaluate each available skill before start
 - You prefer Claude to decide autonomously without forced evaluation
 - You find the explicit evaluation output too verbose
 
+### Forced Eval With Final Review Hook
+
+**File**: `forced-eval-with-final-review.md`
+**Type**: User Prompt Submit Hook
+**Purpose**: Force skill activation at the start of a task and force the `final-review` skill before the final answer when files changed
+
+This hook keeps the original forced-eval behavior, but adds a deferred completion gate for the `final-review` skill.
+
+**When to use:**
+- You want automatic end-of-task review, not just better skill activation
+- You want one hook file that handles both startup evaluation and final review
+- You are already doing implementation-heavy work where code review should be part of the completion gate
+
+**When NOT to use:**
+- You want the lighter-weight original forced eval behavior
+- You rarely make workspace changes in Claude Code
+- You prefer to trigger review manually
+
 ## Installation
 
 ### Method 1: Global Installation (Recommended)
@@ -41,8 +59,8 @@ Install hooks globally so they apply to all Claude Code sessions:
 # Create hooks directory if it doesn't exist
 mkdir -p ~/.claude/hooks
 
-# Copy the forced eval hook
-cp hooks/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
+# Copy the hook you want
+cp hooks-docs/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
 ```
 
 This installs the forced eval hook as your user-prompt-submit hook, so it runs on every prompt.
@@ -55,8 +73,8 @@ Install hooks for a specific project only:
 # In your project directory
 mkdir -p .claude/hooks
 
-# Copy the forced eval hook
-cp ~/Development/claude-setup/hooks/forced-eval-skill.md .claude/hooks/user-prompt-submit.md
+# Copy the hook you want
+cp ~/Development/active/agentic/claude-setup/hooks-docs/forced-eval-skill.md .claude/hooks/user-prompt-submit.md
 ```
 
 ### Method 3: Symlink (For Easy Updates)
@@ -66,11 +84,11 @@ Symlink to always use the latest version:
 ```bash
 # Global (recommended)
 mkdir -p ~/.claude/hooks
-ln -sf ~/Development/claude-setup/hooks/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
+ln -sf ~/Development/active/agentic/claude-setup/hooks-docs/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
 
 # Or project-specific
 mkdir -p .claude/hooks
-ln -sf ~/Development/claude-setup/hooks/forced-eval-skill.md .claude/hooks/user-prompt-submit.md
+ln -sf ~/Development/active/agentic/claude-setup/hooks-docs/forced-eval-skill.md .claude/hooks/user-prompt-submit.md
 ```
 
 ## Hook Naming Convention
@@ -90,6 +108,15 @@ The forced eval hook implements a three-step protocol:
 3. **IMPLEMENT** - Only after evaluation and activation can implementation begin
 
 The hook uses strong language (MANDATORY, CRITICAL, WORTHLESS) to create psychological commitment and prevent Claude from skipping the evaluation.
+
+## How The Combined Hook Works
+
+`forced-eval-with-final-review.md` adds one more gate:
+
+1. Evaluate every skill at prompt start
+2. Run immediate skills now
+3. Defer `final-review` until the task is actually finishing
+4. Require `final-review` before the final answer when material files changed
 
 ## Testing Results
 
@@ -128,7 +155,7 @@ The forced eval hook produces explicit output for each skill evaluation. This is
 
 ## Customization
 
-You can customize the forced eval hook by editing `forced-eval-skill.md`:
+You can customize either hook by editing `forced-eval-skill.md` or `forced-eval-with-final-review.md`:
 
 - Adjust the language strength
 - Modify the evaluation format

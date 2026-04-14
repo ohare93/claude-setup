@@ -23,3 +23,6 @@ Thumbs.db
 # Node.js
 node_modules/
 package-lock.json
+
+# Codex CLI marker (auto-generated, useless)
+.codex

@@ -37,12 +37,15 @@ Executable shell hooks wired via `hooks/hooks.json` (follows the [Hookify](https
 Prompt-injection "hooks" (markdown instructions loaded per session) live in [`hooks-docs/`](hooks-docs/README.md):
 
 - **forced-eval-skill** - Dramatically improves skill activation reliability (84% vs 50% baseline)
+- **forced-eval-with-final-review** - Adds an automatic end-of-task `final-review` gate on top of skill evaluation
 
 ### 🎨 Skills (`skills/`)
 
 Interactive workflows for complex multi-step processes:
 
 - **consolidate-branches** - Consolidate multiple PR branches using jj multi-parent rebase with intelligent AI-powered conflict resolution
+- **final-review** - Run the final build/test/lint/review loop before the final answer
+- **final-review** can use the opposing CLI for review: Claude can call `codex review`, and Codex can call `claude -p`
 
 [Learn more about skills →](skills/README.md)
 
@@ -114,14 +117,14 @@ Your existing `~/.claude/CLAUDE.md` will be backed up to `~/.claude/CLAUDE.md.ba
 
 **Step 4: Install Hooks (Recommended)**
 
-Install the forced eval hook to dramatically improve skill activation reliability:
+Install the combined hook to improve skill activation reliability and automatically require end-of-task review:
 
 ```bash
 mkdir -p ~/.claude/hooks
-ln -sf ~/Development/claude-setup/hooks/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
+ln -sf ~/Development/active/agentic/claude-setup/hooks-docs/forced-eval-with-final-review.md ~/.claude/hooks/user-prompt-submit.md
 ```
 
-This increases skill activation from ~50% to 84% success rate.
+If you only want the original startup behavior, use `hooks-docs/forced-eval-skill.md` instead.
 
 **Step 5: Configure MCP Server Paths**
 
@@ -164,7 +167,7 @@ cp templates/settings-python.json.template ~/Development/my-app/.claude/settings
 All updates happen automatically:
 
 - **Agents/Commands**: Managed by plugin marketplace, auto-update
-- **Hooks**: Symlinked, automatically use latest version from `hooks/`
+- **Hooks**: Symlinked, automatically use latest version from `hooks/` or `hooks-docs/`
 - **Global Instructions**: Symlinked, edit `docs/global-instructions.md` directly
 - **Templates**: Copy fresh templates when starting new projects
 
@@ -181,11 +184,16 @@ claude-setup/
 ├── commands/            # Slash commands
 │   ├── jj-describe-all.md
 │   └── README.md
-├── hooks/               # Behavior improvement hooks
+├── hooks/               # Executable shell hooks
+│   └── README.md
+├── hooks-docs/          # Prompt-injection markdown hooks
 │   ├── forced-eval-skill.md
+│   ├── forced-eval-with-final-review.md
 │   └── README.md
 ├── skills/              # Interactive multi-step workflows
 │   ├── consolidate-branches/
+│   │   └── SKILL.md
+│   ├── final-review/
 │   │   └── SKILL.md
 │   └── README.md
 ├── templates/           # CLAUDE.md and config templates
@@ -234,15 +242,15 @@ Claude will execute the command's instructions.
 Install hooks to automatically improve Claude's behavior:
 
 ```bash
-# Install the forced eval skill hook globally
+# Install the combined hook globally
 mkdir -p ~/.claude/hooks
-cp hooks/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
+cp hooks-docs/forced-eval-with-final-review.md ~/.claude/hooks/user-prompt-submit.md
 
 # Or use a symlink for automatic updates
-ln -sf ~/Development/claude-setup/hooks/forced-eval-skill.md ~/.claude/hooks/user-prompt-submit.md
+ln -sf ~/Development/active/agentic/claude-setup/hooks-docs/forced-eval-with-final-review.md ~/.claude/hooks/user-prompt-submit.md
 ```
 
-The hook will automatically run on every prompt, ensuring skills activate reliably.
+That hook will automatically run on every prompt, ensuring skills activate reliably and that `final-review` runs before the final answer when files changed.
 
 ### Using Skills
 
