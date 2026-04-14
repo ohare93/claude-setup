@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/debug-hook.sh\" Stop"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/niri-notify.sh\" notify"
           }
         ]
       }
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/debug-hook.sh\" Notification"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/niri-notify.sh\" notify"
           }
         ]
       }
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/debug-hook.sh\" UserPromptSubmit"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/niri-notify.sh\" stop"
           }
         ]
       }
