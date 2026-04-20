@@ -9,6 +9,12 @@ description: Use when finishing a task that changed code, config, scripts, promp
 
 Use this skill near the end of a task, after implementation is complete and before the final answer.
 
+## Dynamic Context
+
+Current `jj` status:
+
+!`jj status`
+
 ## Preferred Reviewer
 
 Use the opposing agent when available:
